@@ -1,0 +1,124 @@
+<!--# Author : Arnav A Verma-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loan Application Form</title>
+<link rel="stylesheet" href="{{url_for('static', filename='styles/style.css')}}">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- Font Awesome CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css">
+</head>
+<body>
+    <div class="container-fluid px-1 py-5 mx-auto">
+        <div class="row d-flex justify-content-center">
+            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+                <h3>Loan Application Approval Predictor</h3>
+                <p class="blue-text">Kindly provide the details<br>so that we can predict the approval of your loan application form.</p>
+                <div class="card">
+                    <h5 class="text-center mb-4">Required Details</h5>
+                    <form id="loanForm" class="form-card" action="/predict" method="post" onsubmit="event.preventDefault()">
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Name<span class="text-danger"> *</span></label> 
+                                <input type="text" id="name" name="name" placeholder="Enter your name" required> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">No. of Dependents<span class="text-danger"> *</span></label> 
+                                <input type="number" id="dependents" name="dependents" required> 
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Annual Income<span class="text-danger"> *</span></label> 
+                                <input type="number" id="annualIncome" name="annualIncome" placeholder="" required> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Loan Required<span class="text-danger"> *</span></label> 
+                                <input type="number" id="loanAmount" name="loanAmount" placeholder="" required> 
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Loan Term (in months)<span class="text-danger"> *</span></label> 
+                                <input type="number" id="loanTerm" name="loanTerm" placeholder="" required> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">CIBIL Score<span class="text-danger"> *</span></label> 
+                                <input type="number" id="cibilScore" name="cibilScore" placeholder="Please enter your current CIBIL score" required> 
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Residential Assets Value<span class="text-danger"> *</span></label> 
+                                <input type="number" id="residentialAssets" name="residentialAssets" placeholder="" required> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Commercial Assets Value<span class="text-danger"> *</span></label> 
+                                <input type="number" id="commercialAssets" name="commercialAssets" placeholder="" required> 
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Luxury Assets Value<span class="text-danger"> *</span></label> 
+                                <input type="number" id="luxuryAssets" name="luxuryAssets" placeholder="" required> 
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> 
+                                <label class="form-control-label px-3">Bank Asset Value<span class="text-danger"> *</span></label> 
+                                <input type="number" id="bankAssets" name="bankAssets" placeholder="" required> 
+                            </div>
+                        </div>                
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Education status<span class="text-danger"> *</span></label>
+                                <select id="educationStatus" name="educationStatus" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="graduate">Graduate</option>
+                                    <option value="notGraduate">Not Graduate</option>
+                                </select>
+                            </div>   
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label class="form-control-label px-3">Self Employed Status<span class="text-danger"> *</span></label>
+                                <select id="selfEmployed" name="selfEmployed" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                </select>
+                            </div>                                                       
+                        </div>        
+                        <div class="row justify-content-center">
+                            <div class="form-group col-sm-6"> 
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button> 
+                            </div>
+                        </div>
+                    </form>
+                    <p id="approvalStatus" class="text-center mt-4"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+<script src="{{url_for('static', filename='js/script.js')}}"></script>
+<script>
+    $(document).ready(function(){
+        $('#loanForm').on('submit', function(event){
+            event.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'),
+                type: $(this).attr('method'),
+                data: $(this).serialize(),
+                success: function(response){
+                    $('#approvalStatus').text('Loan ' + response.approval_status);
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
